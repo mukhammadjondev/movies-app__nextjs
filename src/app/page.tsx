@@ -1,7 +1,8 @@
 import Header from "@/components/header";
 
 export default function Home() {
-  return <>
+  return <div className="relative h-screen">
       <Header />
-    </>
+      <main></main>
+    </div>
 }
