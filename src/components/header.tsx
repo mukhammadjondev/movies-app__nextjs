@@ -9,19 +9,18 @@ import { BiBellMinus } from 'react-icons/bi';
 const Header = () => {
 	const [scrolled, setScrolled] = useState(false)
 
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 0) {
-				setScrolled(true);
-			} else {
-				setScrolled(false);
-			}
-		};
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
 
-		window.addEventListener('scroll', handleScroll);
-
-		return () => window.removeEventListener('scroll', handleScroll)
-	}, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
 	return (
 		<header className={`${scrolled && 'bg-[#E10856] shadow-lg'}`}>
@@ -38,7 +37,13 @@ const Header = () => {
 			</div>
 
 			<div className='flex items-center space-x-4 text-sm font-light'>
-			</div>
+        <AiOutlineSearch className='h-6 w-6 cursor-pointer' />
+        <p className='hidden lg:inline'>Kids</p>
+        <BiBellMinus className='h-6 w-6 cursor-pointer' />
+        <Link href={'/account'}>
+          <AiOutlineUser className='h-6 w-6 cursor-pointer' />
+        </Link>
+      </div>
 		</header>
 	);
 };
