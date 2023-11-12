@@ -15,11 +15,10 @@ const Hero = ({trending}: HeroProps): JSX.Element => {
     const randomMovie = trending[Math.floor(Math.random() * trending.length)]
     setMovie(randomMovie)
   }, [trending])
-  console.log(movie)
 
   return (
     <div className="flex flex-col space-y-2 py-20 md:space-y-4 lg:h-[80vh] lg:pb-12 lg:justify-center">
-      <div className="absolute -z-10 top-0 left-0 h-[95vh] w-full">
+      <div className="absolute -z-10 top-0 left-0 h-screen w-full">
         <Image src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`} alt={movie?.title || movie?.name} fill className="object-cover" />
       </div>
 
@@ -32,7 +31,7 @@ const Hero = ({trending}: HeroProps): JSX.Element => {
         <p>({movie.vote_count})</p>
       </div>
 
-      <h1 className="text-2xl font-bold md:text-4xl lg:text-7xl">{movie?.title || movie?.name || movie?.original_name}</h1>
+      <h1 className="text-2xl font-bold md:text-4xl lg:text-7xl text-shadow-md">{movie?.title || movie?.name || movie?.original_name}</h1>
       <p className="max-w-xs md:max-w-lg lg:max-w-2xl text-xs text-shadow-md md:text-lg lg:text-2xl">{movie?.overview?.slice(0, 100)}...</p>
 
       <div>

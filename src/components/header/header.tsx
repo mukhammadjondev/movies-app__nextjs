@@ -11,12 +11,8 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+      setScrolled(window.scrollY > 0)
+    }
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll)
@@ -28,11 +24,9 @@ const Header = () => {
 				<Image src={'/logo.svg'} alt={'logo'} width={56} height={56} className={'cursor-pointer object-contain'} />
 
 				<ul className='space-x-4 md:flex hidden'>
-					<li className='navLink'>Home</li>
-					<li className='navLink'>Movies</li>
-					<li className='navLink'>TV Shows</li>
-					<li className='navLink'>New</li>
-					<li className='navLink'>Popular</li>
+          {['Home', 'Movies', 'TV Shows', 'New', 'Popular'].map((item, index) => (
+            <li key={index} className='navLink'>{item}</li>
+          ))}
 				</ul>
 			</div>
 
