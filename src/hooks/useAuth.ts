@@ -1,6 +1,6 @@
 'use client'
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, User} from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User} from 'firebase/auth'
 import { useState } from 'react'
 import { auth } from '@/firebase'
 import { useRouter } from 'next/navigation'
@@ -42,5 +42,5 @@ export const useAuth = () => {
     await signOut(auth).then(() => setUser(null)).catch(err => setError(err.message)).finally(() => setIsLoading(false))
   }
 
-  return {error, isLoading, user, signIn, signUp, logout}
+  return {error, isLoading, user, signIn, signUp, logout, setUser, setIsLoading}
 }

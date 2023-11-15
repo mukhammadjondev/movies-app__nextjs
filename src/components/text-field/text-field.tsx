@@ -1,3 +1,5 @@
+'use client'
+
 import { TextFieldProps } from "./text-field.props"
 import { useField, FieldHookConfig, ErrorMessage } from 'formik'
 
