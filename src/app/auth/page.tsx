@@ -6,10 +6,15 @@ import { useState, useContext } from 'react'
 import { Formik, Form } from "formik"
 import * as Yup from 'yup'
 import { AuthContext } from "@/context/auth.context"
+import { useRouter } from "next/navigation"
 
 const AuthPage = () => {
   const [auth, setAuth] = useState<'signin' | 'signup'>('signin')
-  const {error, isLoading, signIn, signUp, logout} = useContext(AuthContext)
+  const {error, isLoading, signIn, signUp, user} = useContext(AuthContext)
+  const router = useRouter()
+
+  if(user) router.push('/')
+  if(!isLoading) return <>Loading...</>
 
   const toggleAuth = (state: 'signup' | 'signin') => setAuth(state)
 
@@ -41,8 +46,8 @@ const AuthPage = () => {
             <TextField name="password" placeholder="Password" type={'password'} />
           </div>
 
-          <button type="submit" className="w-full bg-[#E10856] py-3 mt-4 font-semibold">
-            {auth === 'signin' ? 'Sign In' : 'Sign Up'}
+          <button type="submit" disabled={isLoading} className="w-full bg-[#E10856] py-3 mt-4 font-semibold">
+            {isLoading ? 'Loading...' : auth === 'signin' ? 'Sign In' : 'Sign Up'}
           </button>
 
           {auth === 'signin' ? (
