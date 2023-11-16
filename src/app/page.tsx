@@ -1,4 +1,4 @@
-import { Header, Hero, Row } from "@/components";
+import { Header, Hero, Modal, Row } from "@/components";
 import { IMovie } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
 
@@ -32,6 +32,7 @@ export default async function Home() {
           <Row title='Family' movies={comedy} />
         </section>
       </main>
+      <Modal />
     </div>
   )
 }

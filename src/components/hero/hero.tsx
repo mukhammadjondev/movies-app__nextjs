@@ -7,9 +7,17 @@ import Image from "next/image"
 import { image_base } from "@/helpers/constants"
 import { TbPlayerPlay } from 'react-icons/tb'
 import ReactStars from "react-stars"
+import { useInfoState } from "@/store"
+import { useRouter } from "next/navigation"
 
 const Hero = ({trending}: HeroProps): JSX.Element => {
   const [movie, setMovie] = useState<IMovie>({} as IMovie)
+  const {setModal, setCurrentMovie} = useInfoState()
+
+  const handleClick = () => {
+    setCurrentMovie(movie)
+    setModal(true)
+  }
 
   useEffect(() => {
     const randomMovie = trending[Math.floor(Math.random() * trending.length)]
@@ -35,7 +43,7 @@ const Hero = ({trending}: HeroProps): JSX.Element => {
       <p className="max-w-xs md:max-w-lg lg:max-w-2xl text-xs text-shadow-md md:text-lg lg:text-2xl">{movie?.overview?.slice(0, 100)}...</p>
 
       <div>
-        <button className="flex justify-center items-center space-x-2 bg-white/50 font-bold text-black w-[200px] h-[56px] rounded-full">
+        <button className="flex justify-center items-center space-x-2 bg-white/50 hover:bg-white/80 transition-all font-bold text-black w-[200px] h-[56px] rounded-full" onClick={handleClick}>
           <TbPlayerPlay className="h-5 w-5 md:h-7 md:w-7" />Watch now
         </button>
       </div>

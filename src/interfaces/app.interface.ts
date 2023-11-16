@@ -16,4 +16,9 @@ export interface IMovie {
   origin_country: string[]
   name: string
   original_title: string
+  release_date: string
+}
+
+export interface Element {
+  type: "Trailer" | "Featurette"
 }
