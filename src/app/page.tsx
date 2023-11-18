@@ -1,4 +1,4 @@
-import { Header, Hero, Modal, Row } from "@/components";
+import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { IMovie } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
 
@@ -16,6 +16,8 @@ export default async function Home() {
     fetchData(API_REQUEST.comedy),
     fetchData(API_REQUEST.upcoming),
   ])
+  const subscription = false
+  if(!subscription) return <SubscriptionPlan />
 
   return (
     <div className="relative min-h-screen">

@@ -8,7 +8,6 @@ import { image_base } from "@/helpers/constants"
 import { TbPlayerPlay } from 'react-icons/tb'
 import ReactStars from "react-stars"
 import { useInfoState } from "@/store"
-import { useRouter } from "next/navigation"
 
 const Hero = ({trending}: HeroProps): JSX.Element => {
   const [movie, setMovie] = useState<IMovie>({} as IMovie)
