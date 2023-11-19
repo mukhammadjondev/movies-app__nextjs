@@ -1,5 +1,5 @@
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
-import { IMovie } from "@/interfaces/app.interface";
+import { IMovie, Product } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
 
 async function fetchData(apiEndpoint: string): Promise<IMovie[]> {
@@ -7,17 +7,23 @@ async function fetchData(apiEndpoint: string): Promise<IMovie[]> {
   return response.results
 }
 
+async function fetchProduct(apiEndpoint: string): Promise<Product[]> {
+  const products = await fetch(apiEndpoint).then(res => res.json())
+  return products.products.data
+}
+
 export default async function Home() {
-  const [trending, topRated, tvTopRated, popular, comedy, upcoming] = await Promise.all([
+  const [trending, topRated, tvTopRated, popular, comedy, upcoming, products] = await Promise.all([
     fetchData(API_REQUEST.trending),
     fetchData(API_REQUEST.top_rated),
     fetchData(API_REQUEST.tv_top_rated),
     fetchData(API_REQUEST.popular),
     fetchData(API_REQUEST.comedy),
     fetchData(API_REQUEST.upcoming),
+    fetchProduct(API_REQUEST.products),
   ])
   const subscription = false
-  if(!subscription) return <SubscriptionPlan />
+  if(!subscription) return <SubscriptionPlan products={products} />
 
   return (
     <div className="relative min-h-screen">

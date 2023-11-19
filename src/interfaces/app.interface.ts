@@ -22,3 +22,16 @@ export interface IMovie {
 export interface Element {
   type: "Trailer" | "Featurette"
 }
+
+export interface Product {
+  default_price: {
+    id: string
+    unit_amount: number
+  }
+  id: string
+  images: string[]
+  metadata: {
+    adv: string
+  }
+  name: string
+}
