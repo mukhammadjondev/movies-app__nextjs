@@ -2,24 +2,31 @@
 
 import { TextField } from "@/components"
 import Image from "next/image"
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Formik, Form } from "formik"
 import * as Yup from 'yup'
-import { AuthContext } from "@/context/auth.context"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/hooks/useAuth"
 
 const AuthPage = () => {
   const [auth, setAuth] = useState<'signin' | 'signup'>('signin')
-  const {error, isLoading, signIn, signUp, user} = useContext(AuthContext)
+  const {error, isLoading, signIn, signUp, user, setIsLoading} = useAuth()
   const router = useRouter()
 
   if(user) router.push('/')
 
   const toggleAuth = (state: 'signup' | 'signin') => setAuth(state)
 
-  const onSubmit = (formData: {email: '', password: ''}) => {
+  const onSubmit = async (formData: {email: '', password: ''}) => {
     if(auth === 'signup') {
+      setIsLoading(true)
       signUp(formData.email, formData.password)
+      const response = await fetch('/api/customer', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: formData.email})
+      })
+      await response.json()
     } else {
       signIn(formData.email, formData.password)
     }
@@ -45,7 +52,7 @@ const AuthPage = () => {
             <TextField name="password" placeholder="Password" type={'password'} />
           </div>
 
-          <button type="submit" disabled={isLoading} className="w-full bg-[#E10856] py-3 mt-4 font-semibold">
+          <button type="submit" disabled={isLoading} className="w-full bg-[#E10856] py-4 rounded mt-4 font-semibold">
             {isLoading ? 'Loading...' : auth === 'signin' ? 'Sign In' : 'Sign Up'}
           </button>
 

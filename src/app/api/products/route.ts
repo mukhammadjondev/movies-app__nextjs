@@ -11,7 +11,3 @@ export async function GET() {
   })
   return NextResponse.json({products})
 }
-
-interface Data {
-  products: Stripe.Response<Stripe.ApiList<Stripe.Product>>
-}
