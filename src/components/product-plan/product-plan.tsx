@@ -1,28 +1,34 @@
 'use client'
 
 import { AuthContext } from "@/context/auth.context"
-import { useContext } from "react"
+import { NextResponse } from "next/server"
+import { useContext, useState } from "react"
 import { AiOutlineHourglass, AiOutlineVideoCameraAdd } from "react-icons/ai"
 import { RiVipCrown2Line } from "react-icons/ri"
 import { ProductPlanProps } from "./product-plan.props"
 
 const ProductPlan = ({product}: ProductPlanProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {user} = useContext(AuthContext)
 
   const onSubmitSubscription = async (priceId: string) => {
-    const payload = {email: user?.email, priceId}
+    setIsLoading(true);
+		const payload = { email: user?.email, priceId }
+
     try {
-      const response = await fetch('/api/subscription', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      })
-      const data = await response.json()
-      console.log(data)
-      window.open(data.subscription.url)
-    } catch (error) {
+			const response = await fetch('/api/subscription', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload),
+			});
+			const data = await response.json()
+			window.open(data.subscription.url)
+			setIsLoading(false)
+      return NextResponse.json(data)
+		} catch (error) {
+			setIsLoading(false)
       console.log(error)
-    }
+		}
   }
 
   return (
