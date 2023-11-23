@@ -13,7 +13,8 @@ export async function GET(req: NextRequest, route: {params: {id: string}}) {
 
   const subscription = await stripe.subscriptions.list({
     limit: 1,
-    customer: customer?.id
+    customer: customer?.id,
+    expand: ['data.default_payment_method', 'data.customer']
   })
 
   return NextResponse.json({subscription})

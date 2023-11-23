@@ -35,3 +35,23 @@ export interface Product {
   }
   name: string
 }
+
+export interface Subscription {
+  current_period_start: number
+  current_period_end: number
+  id: string
+  plan: {
+    amount: number
+    active: boolean
+    nickname: string
+  }
+  card: {
+    brand: string
+    last4: string
+    exp_month: number,
+    exp_year: number,
+  }
+  customer: {
+    email: string
+  }
+}
