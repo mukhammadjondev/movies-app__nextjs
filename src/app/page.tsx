@@ -2,25 +2,11 @@ import { cookies } from 'next/headers'
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { IMovie, Product } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
-
-async function fetchData(apiEndpoint: string): Promise<IMovie[]> {
-  const response = await fetch(apiEndpoint).then(res => res.json())
-  return response.results
-}
-
-async function fetchProduct(apiEndpoint: string): Promise<Product[]> {
-  const products = await fetch(apiEndpoint).then(res => res.json())
-  return products.products.data
-}
-
-async function fetchSubscription(apiEndpoint: string): Promise<string[]> {
-  const subscription = await fetch(apiEndpoint).then(res => res.json())
-  return subscription.subscription.data
-}
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
   const cookieStore = cookies()
-  const id = cookieStore.get('user_id')
+  const id = cookieStore.get('user_id')?.value
   const [trending, topRated, tvTopRated, popular, comedy, upcoming, products, subscription] = await Promise.all([
     fetchData(API_REQUEST.trending),
     fetchData(API_REQUEST.top_rated),
@@ -32,6 +18,10 @@ export default async function Home() {
     fetchSubscription(`${API_REQUEST.subscription}/${id}`)
   ])
   if(!subscription.length) return <SubscriptionPlan products={products} />
+
+  if (!id) {
+    redirect('/auth')
+  }
 
   return (
     <div className="relative min-h-screen">
@@ -51,4 +41,19 @@ export default async function Home() {
       <Modal />
     </div>
   )
+}
+
+async function fetchData(apiEndpoint: string): Promise<IMovie[]> {
+  const response = await fetch(apiEndpoint).then(res => res.json())
+  return response.results
+}
+
+async function fetchProduct(apiEndpoint: string): Promise<Product[]> {
+  const products = await fetch(apiEndpoint).then(res => res.json())
+  return products.products.data
+}
+
+async function fetchSubscription(apiEndpoint: string): Promise<string[]> {
+  const subscription = await fetch(apiEndpoint).then(res => res.json())
+  return subscription.subscription.data
 }

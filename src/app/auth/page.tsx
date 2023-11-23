@@ -10,7 +10,7 @@ import { useAuth } from "@/hooks/useAuth"
 
 const AuthPage = () => {
   const [auth, setAuth] = useState<'signin' | 'signup'>('signin')
-  const {error, isLoading, signIn, signUp, user, setIsLoading} = useAuth()
+  const {error, isLoading, signIn, signUp, user} = useAuth()
   const router = useRouter()
 
   if(user) router.push('/')
