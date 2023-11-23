@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { IMovie, Product } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
@@ -12,8 +13,15 @@ async function fetchProduct(apiEndpoint: string): Promise<Product[]> {
   return products.products.data
 }
 
+async function fetchSubscription(apiEndpoint: string): Promise<string[]> {
+  const subscription = await fetch(apiEndpoint).then(res => res.json())
+  return subscription.subscription.data
+}
+
 export default async function Home() {
-  const [trending, topRated, tvTopRated, popular, comedy, upcoming, products] = await Promise.all([
+  const cookieStore = cookies()
+  const id = cookieStore.get('user_id')
+  const [trending, topRated, tvTopRated, popular, comedy, upcoming, products, subscription] = await Promise.all([
     fetchData(API_REQUEST.trending),
     fetchData(API_REQUEST.top_rated),
     fetchData(API_REQUEST.tv_top_rated),
@@ -21,9 +29,9 @@ export default async function Home() {
     fetchData(API_REQUEST.comedy),
     fetchData(API_REQUEST.upcoming),
     fetchProduct(API_REQUEST.products),
+    fetchSubscription(`${API_REQUEST.subscription}/${id}`)
   ])
-  const subscription = false
-  if(!subscription) return <SubscriptionPlan products={products} />
+  if(!subscription.length) return <SubscriptionPlan products={products} />
 
   return (
     <div className="relative min-h-screen">

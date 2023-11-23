@@ -11,7 +11,6 @@ export async function POST(req: Request) {
   const customers = await stripe.customers.list({limit: 100})
 
   const customer = customers.data.find(c => c.email === email)
-  console.log(customers.data)
 
   try {
     const subscription = await stripe.checkout.sessions.create({

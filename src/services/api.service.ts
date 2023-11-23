@@ -9,5 +9,6 @@ export const API_REQUEST = {
   upcoming: `${base_url}/movie/upcoming?api_key=${api_key}&language=en-US`,
   popular: `${base_url}/movie/popular?api_key=${api_key}&language=en-US`,
   comedy: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genre=35`,
-  products: `${public_domain}/api/products`
+  products: `${public_domain}/api/products`,
+  subscription: `${public_domain}/api/subscription`,
 }

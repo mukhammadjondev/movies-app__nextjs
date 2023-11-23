@@ -19,14 +19,7 @@ const AuthPage = () => {
 
   const onSubmit = async (formData: {email: '', password: ''}) => {
     if(auth === 'signup') {
-      setIsLoading(true)
       signUp(formData.email, formData.password)
-      const response = await fetch('/api/customer', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email: formData.email})
-      })
-      await response.json()
     } else {
       signIn(formData.email, formData.password)
     }

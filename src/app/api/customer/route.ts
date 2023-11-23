@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { Stripe } from "stripe";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string, {
@@ -5,6 +6,10 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string, {
 })
 
 export async function POST(req: Response) {
-  const {email} = await req.json()
-  await stripe.customers.create({email})
+  try {
+    const {email, user_id} = await req.json()
+    await stripe.customers.create({email, metadata: {user_id}})
+  } catch (err) {
+    return NextResponse.json({error: "Error creating customer"})
+  }
 }
