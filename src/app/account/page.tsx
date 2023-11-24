@@ -23,6 +23,9 @@ const AccountPage = async () => {
   }
 
   const subscription = await fetchSubscription(`${API_REQUEST.subscription}/${id}`)
+  if(!subscription) {
+    redirect('/')
+  }
 
   return (
     <>

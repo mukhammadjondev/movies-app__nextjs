@@ -41,7 +41,7 @@ const ProductPlan = ({product}: ProductPlanProps) => {
       </div>
       <div className="border-[1px] border-white/20 mt-4" />
       <button onClick={() => onSubmitSubscription(product.default_price.id)} className="w-full mt-4 py-4 rounded font-semibold bg-[#E10856]">
-        BUY PLAN
+        {isLoading ? 'Loading...' : 'BUY PLAN'}
       </button>
       <div className="my-4 flex flex-col space-y-2">
         {product.metadata.adv.split(', ').map((c, id) => (

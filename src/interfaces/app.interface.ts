@@ -45,13 +45,18 @@ export interface Subscription {
     active: boolean
     nickname: string
   }
-  card: {
-    brand: string
-    last4: string
-    exp_month: number,
-    exp_year: number,
+  default_payment_method: {
+    card: {
+      brand: string
+      last4: string
+      exp_month: number,
+      exp_year: number,
+    }
   }
   customer: {
     email: string
+    metadata: {
+      user_id: string
+    }
   }
 }
