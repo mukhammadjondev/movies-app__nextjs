@@ -1,8 +1,9 @@
 import { cookies } from 'next/headers'
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
-import { IMovie, Product } from "@/interfaces/app.interface";
+import { IMovie, MyList, Product } from "@/interfaces/app.interface";
 import { API_REQUEST } from "../services/api.service";
 import { redirect } from 'next/navigation';
+import { getList } from '@/helpers/lists';
 
 export default async function Home() {
   const cookieStore = cookies()
@@ -17,6 +18,9 @@ export default async function Home() {
     fetchProduct(API_REQUEST.products),
     fetchSubscription(`${API_REQUEST.subscription}/${id}`)
   ])
+  const myList: MyList[] = await getList(id)
+  const list: IMovie[] = myList.map(c => c.product)
+
   if(!subscription.length) return <SubscriptionPlan products={products} />
 
   if (!id) {
@@ -31,8 +35,9 @@ export default async function Home() {
         <section className="mt-[30vh]">
           <Row title='Top Rated' movies={topRated} />
           <Row title='Tv Show' movies={tvTopRated} isBig={true} />
-          <Row title='Upcoming' movies={upcoming} isBig={true} />
+          <Row title='My List' movies={list} />
           <Row title='Popular' movies={popular} />
+          <Row title='Upcoming' movies={upcoming} isBig={true} />
           <Row title='Comedy' movies={[...comedy].reverse()} />
           <Row title='Trending' movies={trending} />
           <Row title='Family' movies={comedy} />

@@ -60,3 +60,8 @@ export interface Subscription {
     }
   }
 }
+
+export interface MyList {
+  userId: string
+  product: IMovie
+}
