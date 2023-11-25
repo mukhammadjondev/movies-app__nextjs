@@ -8,7 +8,7 @@ export const API_REQUEST = {
   tv_top_rated: `${base_url}/tv/top_rated?api_key=${api_key}&language=en-US`,
   upcoming: `${base_url}/movie/upcoming?api_key=${api_key}&language=en-US`,
   popular: `${base_url}/movie/popular?api_key=${api_key}&language=en-US`,
-  comedy: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genre=35`,
+  comedy: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genres=35`,
   products: `${public_domain}/api/products`,
   subscription: `${public_domain}/api/subscription`,
 }

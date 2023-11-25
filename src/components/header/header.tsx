@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useEffect, useState, useContext } from 'react';
 import { AiOutlineSearch, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { BiBellMinus } from 'react-icons/bi';
+import NavMenu from '../nav-menu/nav-menu';
 
 const Header = () => {
 	const [scrolled, setScrolled] = useState(false)
@@ -25,6 +26,7 @@ const Header = () => {
 			<div className='flex items-center space-x-2 md:space-x-10'>
 				<Image src={'/logo.svg'} alt={'logo'} width={56} height={56} className={'cursor-pointer object-contain'} />
 
+        <NavMenu />
 				<ul className='space-x-4 md:flex hidden'>
           {['Home', 'Movies', 'TV Shows', 'New', 'Popular'].map((item, index) => (
             <li key={index} className='navLink'>{item}</li>

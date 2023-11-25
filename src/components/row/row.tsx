@@ -22,7 +22,7 @@ const Row = ({title, movies, isBig = false}: RowProps): JSX.Element => {
   }
 
   return (
-    <div className="mt-14 space-y-1 md:space-y-2">
+    <div className="mt-5 md:mt-14 space-y-1 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm md:text-2xl font-semibol text-[#e5e5e5] hover:text-white transition duration-200">{title}</h2>
 
       <div className="group relative">
